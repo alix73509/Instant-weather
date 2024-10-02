@@ -89,42 +89,57 @@ document.addEventListener("DOMContentLoaded", () => {
   //////////////////////////////////////////////////////////////////
 
   function createCard(data) {
-    // Créer de nouvelles divs
+    // Créer un conteneur pour les informations météo
+    let weatherContainer = document.createElement("div");
+    weatherContainer.classList.add("bg-white", "rounded-lg", "shadow-lg", "p-6", "mt-6", "max-w-md", "mx-auto");
+
+    // Créer de nouvelles divs avec des classes Tailwind pour styliser les informations
     let weatherTmin = document.createElement("div");
     let weatherTmax = document.createElement("div");
     let weatherPrain = document.createElement("div");
     let weatherSunHours = document.createElement("div");
-    // Ajouter du contenu aux div
-    weatherTmin.textContent = `température minimale : ${data.forecast.tmin}°C`;
-    weatherTmax.textContent = `température maximale : ${data.forecast.tmax}°C`;
+
+    // Ajouter du contenu aux divs
+    weatherTmin.textContent = `Température minimale : ${data.forecast.tmin}°C`;
+    weatherTmax.textContent = `Température maximale : ${data.forecast.tmax}°C`;
     weatherPrain.textContent = `Probabilité de pluie : ${data.forecast.probarain}%`;
-    weatherSunHours.textContent = `Ensoleillement journalier : ${displayHours(
-      data.forecast.sun_hours
-    )}`;
-  
-    // Sélectionner les sections
+    weatherSunHours.textContent = `Ensoleillement journalier : ${displayHours(data.forecast.sun_hours)}`;
+
+    // Ajouter des classes Tailwind pour chaque div
+    weatherTmin.classList.add("text-lg", "font-medium", "text-gray-700", "mb-2");
+    weatherTmax.classList.add("text-lg", "font-medium", "text-gray-700", "mb-2");
+    weatherPrain.classList.add("text-lg", "font-medium", "text-gray-700", "mb-2");
+    weatherSunHours.classList.add("text-lg", "font-medium", "text-gray-700", "mb-2");
+
+    // Ajouter les divs au conteneur
+    weatherContainer.appendChild(weatherTmin);
+    weatherContainer.appendChild(weatherTmax);
+    weatherContainer.appendChild(weatherPrain);
+    weatherContainer.appendChild(weatherSunHours);
+
+    // Sélectionner la section météo
     let weatherSection = document.getElementById("weatherInformation");
     let requestSection = document.getElementById("cityForm");
-    // Ajouter les nouvelles div à la section
-    weatherSection.appendChild(weatherTmin);
-    weatherSection.appendChild(weatherTmax);
-    weatherSection.appendChild(weatherPrain);
-    weatherSection.appendChild(weatherSunHours);
-  
+
+    // Ajouter le conteneur au weatherSection
+    weatherSection.appendChild(weatherContainer);
+
     // Ajouter un bouton de retour vers le formulaire
-    let reloadButton = document.createElement("div");
+    let reloadButton = document.createElement("button");
     reloadButton.textContent = "Nouvelle recherche";
-    reloadButton.classList.add("reloadButton");
-    document.body.appendChild(reloadButton);
+    reloadButton.classList.add("mt-4", "bg-blue-600", "hover:bg-blue-700", "text-white", "font-bold", "py-2", "px-4", "rounded", "block", "mx-auto");
+    weatherContainer.appendChild(reloadButton);
+
     // Ajouter un listener sur le bouton
     reloadButton.addEventListener("click", function () {
       location.reload();
     });
-  
+
     // Gérer la visibilité des sections
     requestSection.style.display = "none";
-    weatherSection.style.display = "flex";
-  }
+    weatherSection.style.display = "block";
+}
+
   
   function displayHours(sunHours) {
     return sunHours + (sunHours > 1 ? " heures" : " heure");

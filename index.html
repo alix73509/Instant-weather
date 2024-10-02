@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="script.js"></script>
+</head>
+<body>
+    <main>
+        <h1 class="text-3xl font-bold uppercase text-center">
+            Instant weather
+        </h1>
+        <p class="text-base text-gray-900 text-center">Choisissez votre commune et consultez les prévisions du jour</p>
+          
+        <section id="cityForm">
+            <form id="cityForm_form" class="max-w-sm mx-auto" action="dummy">
+              <label for="code-postal" class="bg-gray-50 block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
+              <input
+                type="text"
+                id="code-postal"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Entrez un code postal..."
+              />
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                for="communeSelect"
+                class="sr-only"
+                aria-label="Choix de la commune"
+                >Sélectionnez la commune</label
+              >
+              <select id="communeSelect" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></select>
+            </form>
+            <button id="validationButton" class="mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 block mx-auto">Valider</button>
+          </section>
+        <section id="weatherInformation">
+        </section>
+    </main>
+  
+
+</body>
+</html>
