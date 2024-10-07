@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="script.js"></script>
+  <title>Instant-Weather</title>
 </head>
 <body>
-    <main>
+    <main class="bg-[url('4205986.jpg')]">
         <h1 class="text-3xl font-bold uppercase text-center">
             Instant weather
         </h1>
@@ -16,54 +17,77 @@
         <section id="cityForm">
             <form id="cityForm_form" class="max-w-sm mx-auto" action="dummy">
               <!-- Choix du code postal -->
-              <label for="code-postal" class="bg-gray-50 block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
+              <h3 class="mt-3 mb-2 ">Code postal</h3>
+              <label for="code-postal" class="block text-sm font-medium text-gray-900"></label>
               <input
                 type="text"
                 id="code-postal"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                class="border  text-gray-900 text-sm rounded-lg  block w-full p-2.5  dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Entrez un code postal..."
               />
-              <!-- Choix de la commune -->
-              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              <h3 class="mt-5 mb-2">Commune</h3>
+              <label class="block  text-sm font-medium text-gray-900"
                 for="communeSelect"
                 class="sr-only"
                 aria-label="Choix de la commune"
-                >Sélectionnez la commune</label
+                ></label
               >
-              <select id="communeSelect" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></select>
+              <select id="communeSelect" class="border  text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500"></select>
               <!-- Checkbox pour les infos supplémentaires pour la V2 -->
-              <ul class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-                    <div class="flex items-center ps-3">
-                        <input id="latitude" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                        <label for="latitude" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Latitude décimale de la commune</label>
+              
+            <div class="mt-5 space-y-8">
+                <fieldset>
+                  <legend class="text-sm font-semibold leading-6 text-gray-900">Infos supplémentaires</legend>
+                  <div class="mt-6 space-y-6">
+                    <div class="relative flex gap-x-3">
+                      <div class="flex h-6 items-center">
+                        <input id="latitude" name="Latitude" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                      </div>
+                      <div class="text-sm leading-6">
+                        <label for="latitude" class="font-medium text-gray-900">Latitude</label>
+                        <p class="text-gray-500">Donne la latitude</p>
+                      </div>
                     </div>
-                </li>
-                <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-                    <div class="flex items-center ps-3">
-                        <input id="longitude" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                        <label for="longitude" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Longitude décimale de la commune</label>
+                    <div class="relative flex gap-x-3">
+                      <div class="flex h-6 items-center">
+                        <input id="longitude" name="longitude" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                      </div>
+                      <div class="text-sm leading-6">
+                        <label for="longitude" class="font-medium text-gray-900">Longitude</label>
+                        <p class="text-gray-500">Donne la longitude</p>
+                      </div>
                     </div>
-                </li>
-                <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-                    <div class="flex items-center ps-3">
-                        <input id="pluie" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                        <label for="pluie" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cumul de pluie sur la journée en mm</label>
+                    <div class="relative flex gap-x-3">
+                      <div class="flex h-6 items-center">
+                        <input id="pluie" name="pluie" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                      </div>
+                      <div class="text-sm leading-6">
+                        <label for="pluie" class="font-medium text-gray-900">Pluie</label>
+                        <p class="text-gray-500">Donne la pluie</p>
+                      </div>
                     </div>
-                </li>
-                <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-                    <div class="flex items-center ps-3">
-                        <input id="ventMoyen" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                        <label for="ventMoyen" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Vent moyen à 10 mètres en km/h</label>
+                    <div class="relative flex gap-x-3">
+                        <div class="flex h-6 items-center">
+                          <input id="ventMoyen" name="ventMoyen" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                        </div>
+                        <div class="text-sm leading-6">
+                          <label for="ventMoyen" class="font-medium text-gray-900">Vent moyen</label>
+                          <p class="text-gray-500">Donne le vent moyen</p>
+                        </div>
+                      </div>
+                    <div class="relative flex gap-x-3">
+                        <div class="flex h-6 items-center">
+                            <input id="ventDirection" name="ventDirection" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                        </div>
+                        <div class="text-sm leading-6">
+                            <label for="ventDirection" class="font-medium text-gray-900">Vent direction</label>
+                            <p class="text-gray-500">Donne la direction du vent</p>
+                        </div>
                     </div>
-                </li>
-                <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-                  <div class="flex items-center ps-3">
-                      <input id="ventDirection" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                      <label for="ventDirection" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Direction du vent en degrés (0 à 360°)</label>
+
                   </div>
-              </li>
-            </ul>
+                </fieldset>
+            </div>
             </form>
             <!-- Bouton de validation pour lancer la recherche -->
             <button id="validationButton" class="mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 block mx-auto">Valider</button>
