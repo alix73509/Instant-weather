@@ -93,11 +93,49 @@ document.addEventListener("DOMContentLoaded", () => {
     let weatherContainer = document.createElement("div");
     weatherContainer.classList.add("bg-white", "rounded-lg", "shadow-lg", "p-6", "mt-6", "max-w-md", "mx-auto");
 
-    // Créer de nouvelles divs avec des classes Tailwind pour styliser les informations
+    // Créer de nouvelles divs 
     let weatherTmin = document.createElement("div");
     let weatherTmax = document.createElement("div");
     let weatherPrain = document.createElement("div");
     let weatherSunHours = document.createElement("div");
+
+    // Modification pour les fonctionnalités de la V2
+    if(document.getElementById("latitude").checked == true){
+      let weatherLatitude = document.createElement("div");
+      console.log("latitude cochée");
+      weatherLatitude.textContent = `Latitude : ${data.forecast.latitude}`;
+      weatherLatitude.classList.add("text-lg", "font-medium", "text-gray-700", "mb-2");
+      weatherContainer.appendChild(weatherLatitude);
+    }
+    if(document.getElementById("longitude").checked == true){
+      let weatherLongitude = document.createElement("div");
+      console.log("longitude cochée");
+      weatherLongitude.textContent = `Longitude : ${data.forecast.longitude}`;
+      weatherLongitude.classList.add("text-lg", "font-medium", "text-gray-700", "mb-2");
+      weatherContainer.appendChild(weatherLongitude);
+    }
+    if(document.getElementById("pluie").checked == true){
+      let weatherPluie = document.createElement("div");
+      console.log("pluie cochée");
+      weatherPluie.textContent = `Cumul de pluie en mm : ${data.forecast.rr10}`;
+      weatherPluie.classList.add("text-lg", "font-medium", "text-gray-700", "mb-2");
+      weatherContainer.appendChild(weatherPluie);
+    }
+    if(document.getElementById("ventMoyen").checked == true){
+      let weatherVentMoyen = document.createElement("div");
+      console.log("ventMoyen cochée");
+      weatherVentMoyen.textContent = `Vitesse moyenne du vent à 10m : ${data.forecast.wind10m}km/h`;
+      weatherVentMoyen.classList.add("text-lg", "font-medium", "text-gray-700", "mb-2");
+      weatherContainer.appendChild(weatherVentMoyen);
+    }
+    if(document.getElementById("ventDirection").checked == true){
+      let weatherVentDirection = document.createElement("div");
+      console.log("ventDirection cochée");
+      weatherVentDirection.textContent = `Direction du vent (0 à 360°) : ${data.forecast.dirwind10m}°`;
+      weatherVentDirection.classList.add("text-lg", "font-medium", "text-gray-700", "mb-2");
+      weatherContainer.appendChild(weatherVentDirection);
+    }
+
 
     // Ajouter du contenu aux divs
     weatherTmin.textContent = `Température minimale : ${data.forecast.tmin}°C`;
