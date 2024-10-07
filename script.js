@@ -1,3 +1,5 @@
+const TOKEN = '3313c6bdb99b777c0293f925f38c4669b7793554dff82e1a7ff000057b5a45d1';
+
 document.addEventListener("DOMContentLoaded", () => {
     // Sélection des éléments
     const codePostalInput = document.getElementById("code-postal");
@@ -49,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function fetchMeteoByCommune(selectedCommune) {
       try {
         const response = await fetch(
-          `https://api.meteo-concept.com/api/forecast/daily/0?token=3313c6bdb99b777c0293f925f38c4669b7793554dff82e1a7ff000057b5a45d1&insee=${selectedCommune}`
+          `https://api.meteo-concept.com/api/forecast/daily/0?token=${TOKEN}&insee=${selectedCommune}`
         );
         const data = await response.json();
         return data;
@@ -98,11 +100,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function createCard(data) {
     const rangeInput = document.getElementById('large-range');
+    let submitContainer = document.createElement("div");
+    submitContainer.classList.add("bg-white", "rounded-lg", "shadow-lg", "p-6", "mt-6", "max-w-md", "mx-auto");
     for(let i = 0; i < rangeInput.value; i++){
         // Créer un conteneur pour les informations météo
       let weatherContainer = document.createElement("div");
       weatherContainer.classList.add("bg-white", "rounded-lg", "shadow-lg", "p-6", "mt-6", "max-w-md", "mx-auto");
-
       // Créer de nouvelles divs 
       let weatherTmin = document.createElement("div");
       let weatherTmax = document.createElement("div");
@@ -172,22 +175,21 @@ document.addEventListener("DOMContentLoaded", () => {
       // Ajouter le conteneur au weatherSection
       weatherSection.appendChild(weatherContainer);
 
-      // Ajouter un bouton de retour vers le formulaire
-      let reloadButton = document.createElement("button");
-      reloadButton.textContent = "Nouvelle recherche";
-      reloadButton.classList.add("mt-4", "bg-blue-600", "hover:bg-blue-700", "text-white", "font-bold", "py-2", "px-4", "rounded", "block", "mx-auto");
-      weatherContainer.appendChild(reloadButton);
-
-      // Ajouter un listener sur le bouton
-      reloadButton.addEventListener("click", function () {
-        location.reload();
-      });
-
       // Gérer la visibilité des sections
       requestSection.style.display = "none";
       weatherSection.style.display = "block";
     }
-    
+    // Ajouter un bouton de retour vers le formulaire
+    let weatherSection = document.getElementById("weatherInformation");
+    let reloadButton = document.createElement("button");
+    reloadButton.textContent = "Nouvelle recherche";
+    reloadButton.classList.add("mt-4", "bg-blue-600", "hover:bg-blue-700", "text-white", "font-bold", "py-2", "px-4", "rounded", "block", "mx-auto");
+    submitContainer.appendChild(reloadButton);
+    weatherSection.appendChild(submitContainer);  
+    // Ajouter un listener sur le bouton
+    reloadButton.addEventListener("click", function () {
+      location.reload();
+    });
 }
 
   
