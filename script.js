@@ -18,6 +18,14 @@ document.addEventListener("DOMContentLoaded", () => {
         throw error;
       }
     }
+
+  const rangeInput = document.getElementById('large-range');
+  const rangeValue = document.getElementById('range-value');
+
+  // Update the span text when the range input changes
+  rangeInput.addEventListener('input', function() {
+    rangeValue.textContent = rangeInput.value;
+  });
   
     // Fonction pour afficher les communes dans la liste déroulante
     function displayCommunes(data) {
