@@ -1,3 +1,18 @@
+
+body {
+  background: url('4205986.jpg') no-repeat center center fixed;
+  background-size: cover; /* Ensures the image covers the background */
+}
+
+main {
+  min-height: 100vh; /* Ensures enough height */
+  padding: 2rem; /* Optional: add padding */
+}
+
+.weatherContainer {
+  margin-bottom: 1rem; /* Space between weather cards */
+}
+
 /* Custom styles for the range input */
 .custom-range {
     -webkit-appearance: none; /* Disable default styles for WebKit browsers */

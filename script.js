@@ -1,5 +1,15 @@
 const TOKEN = '3313c6bdb99b777c0293f925f38c4669b7793554dff82e1a7ff000057b5a45d1';
 
+const DaysOfWeek = {
+  DIMANCHE: 0,
+  LUNDI: 1,
+  MARDI: 2,
+  MERCREDI: 3,
+  JEUDI: 4,
+  VENDREDI: 5,
+  SAMEDI: 6
+};
+
 document.addEventListener("DOMContentLoaded", () => {
     // Sélection des éléments
     const codePostalInput = document.getElementById("code-postal");
@@ -97,17 +107,51 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  function adjustMainHeight() {
+    const mainElement = document.querySelector('main');
+    const weatherCardsHeight = document.getElementById('weatherInformation').offsetHeight;
+    mainElement.style.minHeight = `${weatherCardsHeight + 100}px`; // Add extra space as needed
+  }
+  
+    function updateWeatherImage(weatherCode) {
+      let weatherImage = document.createElement("img");
+  
+      // Logique pour ajuster la partie visible de l'image en fonction du code météo
+      if (weatherCode <= 1) {
+        weatherImage.src = "image/soleil.png";  
+      } else if (weatherCode <= 4) {
+        weatherImage.src = "image/nuage.png";  // Chemin de ton image contenant plusieurs sections
+      } else if (weatherCode <= 7) {
+        weatherImage.src = "image/brouillard.png";  // Chemin de ton image contenant plusieurs sections
+      } else if (weatherCode <= 16 || (weatherCode>=40 && weatherCode<=48) || (weatherCode>=210 && weatherCode<=212)) {
+        weatherImage.src = "image/pluie.png";  // Chemin de ton image contenant plusieurs sections
+      } else if (weatherCode <= 32 || (weatherCode>=60 && weatherCode<=78) || (weatherCode>=220 && weatherCode<=232)) {
+        weatherImage.src = "image/neige.png";  // Chemin de ton image contenant plusieurs sections
+      }
+      else if (weatherCode <= 142) {
+        weatherImage.src = "image/orage.png";  // Chemin de ton image contenant plusieurs sections
+      }
+      else {
+        weatherImage.src = "image/grele.png";  // Chemin de ton image contenant plusieurs sections
+      }
+  
+      weatherImage.alt = "Conditions météorologiques"; // Texte alternatif pour l'image
+      weatherImage.style.objectFit = "none"; // Empêche le redimensionnement automatique
+      weatherImage.classList.add("w-full", "h-auto", "mt-4");  // Classes Tailwind pour le style
+      return weatherImage;
+  }
+
   //////////////////////////////////////////////////////////////////
 
   function createCard(data) {
     const rangeInput = document.getElementById('large-range');
+
     let submitContainer = document.createElement("div");
     submitContainer.classList.add("bg-white", "rounded-lg", "shadow-lg", "p-6", "mt-6", "max-w-md", "mx-auto");
   
     // Loop through the forecast for each day, up to the number of days chosen by the user
     for (let i = 0; i < rangeInput.value; i++) {
       let weatherForecast = data.forecast[i]; // Access the forecast for the ith day
-  
       // Create a container for the weather information
       let weatherContainer = document.createElement("div");
       weatherContainer.classList.add("bg-white", "rounded-lg", "shadow-lg", "p-6", "mt-6", "max-w-md", "mx-auto");
@@ -117,7 +161,10 @@ document.addEventListener("DOMContentLoaded", () => {
       let weatherTmax = document.createElement("div");
       let weatherPrain = document.createElement("div");
       let weatherSunHours = document.createElement("div");
-  
+      let currentDate = document.createElement("div");
+      let weatherImage = updateWeatherImage(data.forecast.weather);
+      weatherContainer.appendChild(currentDate);
+      weatherContainer.appendChild(weatherImage);
       // Optionally display extra data for V2 functionality (e.g., latitude, longitude, etc.)
       if (document.getElementById("latitude").checked == true) {
         let weatherLatitude = document.createElement("div");
@@ -151,6 +198,19 @@ document.addEventListener("DOMContentLoaded", () => {
       }
   
       // Add weather data to the divs
+      let dateString = data.forecast[i].datetime;
+      let date = new Date(dateString);
+      const days = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi' ]
+      if(i == 0){
+        currentDate.textContent = "Aujourd'hui";
+        currentDate.classList.add("text-lg", "font-medium", "text-gray-700", "mb-2")
+      } else if(i == 1){
+        currentDate.classList.add("text-lg", "font-medium", "text-gray-700", "mb-2")
+        currentDate.textContent = "Demain";
+      }else {
+        currentDate.classList.add("text-lg", "font-medium", "text-gray-700", "mb-2")
+        currentDate.textContent = days[date.getDay()];
+      }
       weatherTmin.textContent = `Température minimale : ${weatherForecast.tmin}°C`;
       weatherTmax.textContent = `Température maximale : ${weatherForecast.tmax}°C`;
       weatherPrain.textContent = `Probabilité de pluie : ${weatherForecast.probarain}%`;
@@ -163,10 +223,12 @@ document.addEventListener("DOMContentLoaded", () => {
       weatherSunHours.classList.add("text-lg", "font-medium", "text-gray-700", "mb-2");
   
       // Append the divs to the container
+      
       weatherContainer.appendChild(weatherTmin);
       weatherContainer.appendChild(weatherTmax);
       weatherContainer.appendChild(weatherPrain);
       weatherContainer.appendChild(weatherSunHours);
+      
   
       // Append the container to the weather section
       let weatherSection = document.getElementById("weatherInformation");
@@ -190,9 +252,13 @@ weatherSection.appendChild(submitContainer);
 // Ajouter un listener sur le bouton
 reloadButton.addEventListener("click", function () {
   document.getElementById("code-postal").value = "";
+  rangeInput.value = 0;
+  rangeValue = 0;
   location.reload();
 });
-  }
+weatherSection.style.display = "block";
+adjustMainHeight();
+}
   
   function displayHours(sunHours) {
     return sunHours + (sunHours > 1 ? " heures" : " heure");
