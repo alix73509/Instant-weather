@@ -48,10 +48,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   
     // Fonction pour effectuer la requête API de météo en utilisant le code de la commune sélectionnée
-    async function fetchMeteoByCommune(selectedCommune) {
+    async function fetchMeteoByCommune(selectedCommune, days) {
       try {
         const response = await fetch(
-          `https://api.meteo-concept.com/api/forecast/daily/0?token=${TOKEN}&insee=${selectedCommune}`
+          `https://api.meteo-concept.com/api/forecast/daily?token=${TOKEN}&insee=${selectedCommune}&days=${days}`
         );
         const data = await response.json();
         return data;
@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
         throw error;
       }
     }
+    
   
     // Ajout de l'écouteur d'événement "input" sur le champ code postal
     codePostalInput.addEventListener("input", async () => {
@@ -102,96 +103,96 @@ document.addEventListener("DOMContentLoaded", () => {
     const rangeInput = document.getElementById('large-range');
     let submitContainer = document.createElement("div");
     submitContainer.classList.add("bg-white", "rounded-lg", "shadow-lg", "p-6", "mt-6", "max-w-md", "mx-auto");
-    for(let i = 0; i < rangeInput.value; i++){
-        // Créer un conteneur pour les informations météo
+  
+    // Loop through the forecast for each day, up to the number of days chosen by the user
+    for (let i = 0; i < rangeInput.value; i++) {
+      let weatherForecast = data.forecast[i]; // Access the forecast for the ith day
+  
+      // Create a container for the weather information
       let weatherContainer = document.createElement("div");
       weatherContainer.classList.add("bg-white", "rounded-lg", "shadow-lg", "p-6", "mt-6", "max-w-md", "mx-auto");
-      // Créer de nouvelles divs 
+  
+      // Create new divs for weather data
       let weatherTmin = document.createElement("div");
       let weatherTmax = document.createElement("div");
       let weatherPrain = document.createElement("div");
       let weatherSunHours = document.createElement("div");
-
-      // Modification pour les fonctionnalités de la V2
-      if(document.getElementById("latitude").checked == true){
+  
+      // Optionally display extra data for V2 functionality (e.g., latitude, longitude, etc.)
+      if (document.getElementById("latitude").checked == true) {
         let weatherLatitude = document.createElement("div");
-        console.log("latitude cochée");
-        weatherLatitude.textContent = `Latitude : ${data.forecast.latitude}`;
+        weatherLatitude.textContent = `Latitude : ${weatherForecast.latitude}`;
         weatherLatitude.classList.add("text-lg", "font-medium", "text-gray-700", "mb-2");
         weatherContainer.appendChild(weatherLatitude);
       }
-      if(document.getElementById("longitude").checked == true){
+      if (document.getElementById("longitude").checked == true) {
         let weatherLongitude = document.createElement("div");
-        console.log("longitude cochée");
-        weatherLongitude.textContent = `Longitude : ${data.forecast.longitude}`;
+        weatherLongitude.textContent = `Longitude : ${weatherForecast.longitude}`;
         weatherLongitude.classList.add("text-lg", "font-medium", "text-gray-700", "mb-2");
         weatherContainer.appendChild(weatherLongitude);
       }
-      if(document.getElementById("pluie").checked == true){
+      if (document.getElementById("pluie").checked == true) {
         let weatherPluie = document.createElement("div");
-        console.log("pluie cochée");
-        weatherPluie.textContent = `Cumul de pluie en mm : ${data.forecast.rr10}`;
+        weatherPluie.textContent = `Cumul de pluie en mm : ${weatherForecast.rr10}`;
         weatherPluie.classList.add("text-lg", "font-medium", "text-gray-700", "mb-2");
         weatherContainer.appendChild(weatherPluie);
       }
-      if(document.getElementById("ventMoyen").checked == true){
+      if (document.getElementById("ventMoyen").checked == true) {
         let weatherVentMoyen = document.createElement("div");
-        console.log("ventMoyen cochée");
-        weatherVentMoyen.textContent = `Vitesse moyenne du vent à 10m : ${data.forecast.wind10m}km/h`;
+        weatherVentMoyen.textContent = `Vitesse moyenne du vent à 10m : ${weatherForecast.wind10m} km/h`;
         weatherVentMoyen.classList.add("text-lg", "font-medium", "text-gray-700", "mb-2");
         weatherContainer.appendChild(weatherVentMoyen);
       }
-      if(document.getElementById("ventDirection").checked == true){
+      if (document.getElementById("ventDirection").checked == true) {
         let weatherVentDirection = document.createElement("div");
-        console.log("ventDirection cochée");
-        weatherVentDirection.textContent = `Direction du vent (0 à 360°) : ${data.forecast.dirwind10m}°`;
+        weatherVentDirection.textContent = `Direction du vent (0 à 360°) : ${weatherForecast.dirwind10m}°`;
         weatherVentDirection.classList.add("text-lg", "font-medium", "text-gray-700", "mb-2");
         weatherContainer.appendChild(weatherVentDirection);
       }
-
-
-      // Ajouter du contenu aux divs
-      weatherTmin.textContent = `Température minimale : ${data.forecast.tmin}°C`;
-      weatherTmax.textContent = `Température maximale : ${data.forecast.tmax}°C`;
-      weatherPrain.textContent = `Probabilité de pluie : ${data.forecast.probarain}%`;
-      weatherSunHours.textContent = `Ensoleillement journalier : ${displayHours(data.forecast.sun_hours)}`;
-
-      // Ajouter des classes Tailwind pour chaque div
+  
+      // Add weather data to the divs
+      weatherTmin.textContent = `Température minimale : ${weatherForecast.tmin}°C`;
+      weatherTmax.textContent = `Température maximale : ${weatherForecast.tmax}°C`;
+      weatherPrain.textContent = `Probabilité de pluie : ${weatherForecast.probarain}%`;
+      weatherSunHours.textContent = `Ensoleillement journalier : ${displayHours(weatherForecast.sun_hours)}`;
+  
+      // Add Tailwind classes for styling
       weatherTmin.classList.add("text-lg", "font-medium", "text-gray-700", "mb-2");
       weatherTmax.classList.add("text-lg", "font-medium", "text-gray-700", "mb-2");
       weatherPrain.classList.add("text-lg", "font-medium", "text-gray-700", "mb-2");
       weatherSunHours.classList.add("text-lg", "font-medium", "text-gray-700", "mb-2");
-
-      // Ajouter les divs au conteneur
+  
+      // Append the divs to the container
       weatherContainer.appendChild(weatherTmin);
       weatherContainer.appendChild(weatherTmax);
       weatherContainer.appendChild(weatherPrain);
       weatherContainer.appendChild(weatherSunHours);
-
-      // Sélectionner la section météo
+  
+      // Append the container to the weather section
       let weatherSection = document.getElementById("weatherInformation");
       let requestSection = document.getElementById("cityForm");
-
-      // Ajouter le conteneur au weatherSection
+  
       weatherSection.appendChild(weatherContainer);
-
-      // Gérer la visibilité des sections
+  
+      // Handle the visibility of the sections
       requestSection.style.display = "none";
       weatherSection.style.display = "block";
     }
-    // Ajouter un bouton de retour vers le formulaire
-    let weatherSection = document.getElementById("weatherInformation");
-    let reloadButton = document.createElement("button");
-    reloadButton.textContent = "Nouvelle recherche";
-    reloadButton.classList.add("mt-4", "bg-blue-600", "hover:bg-blue-700", "text-white", "font-bold", "py-2", "px-4", "rounded", "block", "mx-auto");
-    submitContainer.appendChild(reloadButton);
-    weatherSection.appendChild(submitContainer);  
-    // Ajouter un listener sur le bouton
-    reloadButton.addEventListener("click", function () {
-      location.reload();
-    });
-}
+  
 
+// Ajouter un bouton de retour vers le formulaire
+let weatherSection = document.getElementById("weatherInformation");
+let reloadButton = document.createElement("button");
+reloadButton.textContent = "Nouvelle recherche";
+reloadButton.classList.add("mt-4", "bg-blue-600", "hover:bg-blue-700", "text-white", "font-bold", "py-2", "px-4", "rounded", "block", "mx-auto");
+submitContainer.appendChild(reloadButton);
+weatherSection.appendChild(submitContainer);  
+// Ajouter un listener sur le bouton
+reloadButton.addEventListener("click", function () {
+  document.getElementById("code-postal").value = "";
+  location.reload();
+});
+  }
   
   function displayHours(sunHours) {
     return sunHours + (sunHours > 1 ? " heures" : " heure");
