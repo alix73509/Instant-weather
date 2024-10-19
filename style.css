@@ -1,14 +1,15 @@
-#wImage{
-  width: 15vw;
-  margin: auto;
-}
+@media (min-width: 1200px){
+ #wImage{
+    width: 15vw;
+    margin: auto;
+  }
 
-#card{
-  width: 30%;
-  text-align: center;
-  margin-left:35%;
+  #card{
+    width: 30%;
+    text-align: center;
+    margin-left:35%;
+  }
 }
-
 
 #weatherInformation{
   display: flex;
