@@ -1,22 +1,25 @@
-@media (min-width: 1200px){
- #wImage{
+#card {
+  text-align: center;
+}
+
+@media (min-width: 1200px) {
+  #wImage {
     width: 15vw;
     margin: auto;
   }
 
-  #card{
+  #card {
     width: 30%;
-    text-align: center;
-    margin-left:35%;
+    margin-left: 35%;
   }
 }
 
-#weatherInformation{
+#weatherInformation {
   display: flex;
 }
 
 body {
-  background: url('4205986.jpg') no-repeat center center fixed;
+  background: url("4205986.jpg") no-repeat center center fixed;
   background-size: cover; /* Ensures the image covers the background */
 }
 
@@ -31,71 +34,71 @@ main {
 
 /* Custom styles for the range input */
 .custom-range {
-    -webkit-appearance: none; /* Disable default styles for WebKit browsers */
-    appearance: none; /* Disable default styles for other browsers */
-    width: 100%;
-    height: 0.5em; /* Track height: adjust relative to the screen */
-    background: #e5e7eb; /* Light gray background */
-    outline: none; /* No outline */
-    border-radius: 10px; /* Rounded track corners */
+  -webkit-appearance: none; /* Disable default styles for WebKit browsers */
+  appearance: none; /* Disable default styles for other browsers */
+  width: 100%;
+  height: 0.5em; /* Track height: adjust relative to the screen */
+  background: #e5e7eb; /* Light gray background */
+  outline: none; /* No outline */
+  border-radius: 10px; /* Rounded track corners */
+}
+
+/* Track styling */
+.custom-range::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 0.5em; /* Height of the track */
+  background: #e5e7eb; /* Light gray */
+  border-radius: 10px; /* Rounded corners for the track */
+}
+.custom-range::-moz-range-track {
+  width: 100%;
+  height: 0.5em;
+  background: #e5e7eb;
+  border-radius: 10px;
+}
+
+/* Thumb (the round handle) */
+.custom-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1.2em; /* Smaller thumb */
+  height: 1.2em;
+  background: #c8a2c8; /* Lilac color */
+  border-radius: 50%; /* Makes it round */
+  cursor: pointer;
+  margin-top: -0.35em; /* Align the thumb vertically to the center of the track */
+}
+.custom-range::-moz-range-thumb {
+  width: 1.2em;
+  height: 1.2em;
+  background: #c8a2c8; /* Lilac color */
+  border-radius: 50%; /* Makes it round */
+  cursor: pointer;
+  margin-top: -0.35em; /* Align the thumb vertically */
+}
+
+/* Styling for the thumb while active (being dragged) */
+.custom-range:active::-webkit-slider-thumb {
+  background: #b682b6; /* Slightly darker lilac when active */
+}
+.custom-range:active::-moz-range-thumb {
+  background: #b682b6; /* Slightly darker lilac when active */
+}
+
+/* Firefox specific */
+.custom-range::-moz-focus-outer {
+  border: 0;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .custom-range {
+    height: 0.4em; /* Slightly smaller for small screens */
   }
 
-  /* Track styling */
-  .custom-range::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 0.5em; /* Height of the track */
-    background: #e5e7eb; /* Light gray */
-    border-radius: 10px; /* Rounded corners for the track */
-  }
-  .custom-range::-moz-range-track {
-    width: 100%;
-    height: 0.5em;
-    background: #e5e7eb;
-    border-radius: 10px;
-  }
-
-  /* Thumb (the round handle) */
-  .custom-range::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 1.2em; /* Smaller thumb */
-    height: 1.2em;
-    background: #c8a2c8; /* Lilac color */
-    border-radius: 50%; /* Makes it round */
-    cursor: pointer;
-    margin-top: -0.35em; /* Align the thumb vertically to the center of the track */
-  }
+  .custom-range::-webkit-slider-thumb,
   .custom-range::-moz-range-thumb {
-    width: 1.2em;
-    height: 1.2em;
-    background: #c8a2c8; /* Lilac color */
-    border-radius: 50%; /* Makes it round */
-    cursor: pointer;
-    margin-top: -0.35em; /* Align the thumb vertically */
+    width: 1em;
+    height: 1em;
   }
-
-  /* Styling for the thumb while active (being dragged) */
-  .custom-range:active::-webkit-slider-thumb {
-    background: #b682b6; /* Slightly darker lilac when active */
-  }
-  .custom-range:active::-moz-range-thumb {
-    background: #b682b6; /* Slightly darker lilac when active */
-  }
-
-  /* Firefox specific */
-  .custom-range::-moz-focus-outer {
-    border: 0;
-  }
-
-  /* Responsiveness */
-  @media (max-width: 768px) {
-    .custom-range {
-      height: 0.4em; /* Slightly smaller for small screens */
-    }
-
-    .custom-range::-webkit-slider-thumb,
-    .custom-range::-moz-range-thumb {
-      width: 1em;
-      height: 1em;
-    }
-  }
+}
