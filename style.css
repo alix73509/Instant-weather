@@ -1,3 +1,18 @@
+#wImage{
+  width: 15vw;
+  margin: auto;
+}
+
+#card{
+  width: 30%;
+  text-align: center;
+  margin-left:35%;
+}
+
+
+#weatherInformation{
+  display: flex;
+}
 
 body {
   background: url('4205986.jpg') no-repeat center center fixed;

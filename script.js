@@ -138,6 +138,7 @@ function updateWeatherImage(weatherCode) {
   weatherImage.alt = "Conditions météorologiques"; // Texte alternatif pour l'image
   weatherImage.style.objectFit = "none"; // Empêche le redimensionnement automatique
   weatherImage.classList.add("w-full", "h-auto", "mt-4");  // Classes Tailwind pour le style
+  weatherImage.id = "wImage";
   return weatherImage;
 }
 
@@ -155,7 +156,8 @@ function createCard(data) {
     // Create a container for the weather information
     let weatherContainer = document.createElement("div");
     weatherContainer.classList.add("bg-white", "rounded-lg", "shadow-lg", "p-6", "mt-6", "w-full", "md:w-1/2", "lg:w-1/3"); // Card responsives
-
+    weatherContainer.id = "card";
+    console.log(weatherContainer.id);
     // Create new divs for weather data
     let weatherTmin = document.createElement("div");
     let weatherTmax = document.createElement("div");
